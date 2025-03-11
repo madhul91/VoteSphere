@@ -7,7 +7,7 @@ const history =useHistory();
 const logout=async(e)=>{
 e.preventDefault();
 
-    const logo = await fetch('/logout' , {
+    const logo = await fetch('https://votesphere-3.onrender.com/logout' , {
         method: 'GET'
     });
     if(logo.status === 200){
@@ -15,7 +15,7 @@ e.preventDefault();
     }
     if(logo.status === 400){
         alert('Please login to log out :)');
-        history.push('/signin')
+        history.push('https://votesphere-3.onrender.com/signin')
     }
 
 }
