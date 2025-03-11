@@ -24,11 +24,11 @@ const Login = () => {
         const {name, email, mobile , password ,aadhar} = user;
         if(name==="" || email==="" || mobile==="" || password==="" || aadhar===""){
             alert('Fill in all the fields')
-            history.push('/signup')
+            history.push('https://votesphere-3.onrender.com/signup')
         }
         else{
             
-       const res = await fetch('/register', {
+       const res = await fetch('https://votesphere-3.onrender.com/register', {
            method: 'POST',
            headers:{
                "Content-Type" : "application/json"
@@ -41,11 +41,11 @@ const Login = () => {
        const data = await res.json();
        if(res.status === 422 || !data){
                 window.alert("User already exists.Try logging in")
-                history.push('/signin')
+                history.push('https://votesphere-3.onrender.com/signin')
        }
        else{
            window.alert("Registration Successfull")
-           history.push('/signin')
+           history.push('https://votesphere-3.onrender.com/signin')
        }
     }
     }
