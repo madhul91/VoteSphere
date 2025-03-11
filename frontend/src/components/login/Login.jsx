@@ -14,7 +14,7 @@ localStorage.setItem("aadhar",aadhar)
 localStorage.setItem("aadhar-password",password)
 
         e.preventDefault();
-        const res = await fetch('/login' , {
+        const res = await fetch('https://votesphere-3.onrender.com/login' , {
             method: 'POST',
             headers:{
                 "Content-Type" : "application/json"
