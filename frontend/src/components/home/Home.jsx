@@ -7,7 +7,7 @@ const Home = () => {
 
 
     const loadData = async(e)=>{
-        const res =await fetch('https://votesphere-3.onrender.com/home' , { 
+        const res =await fetch('https://votesphere-5.onrender.com/home' , { 
             method: 'GET',
             headers:{
                 Accept: 'application/json',
