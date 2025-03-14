@@ -70,7 +70,7 @@ const Login = () => {
                 </div>
                 <div className="email">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="name" placeholder="Enter your email address" value={user.email} onChange={(e)=>handleInput(e)} />
+                <input type="email" name="email" id="email" placeholder="Enter your email address" value={user.email} onChange={(e)=>handleInput(e)} />
                 </div>
 
                 <div className="password">
