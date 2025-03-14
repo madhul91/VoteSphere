@@ -7,7 +7,7 @@ const history =useHistory();
 const logout=async(e)=>{
 e.preventDefault();
 
-    const logo = await fetch('https://votesphere-3.onrender.com/logout' , {
+    const logo = await fetch('https://votesphere-5.onrender.com/logout' , {
         method: 'GET'
     });
     if(logo.status === 200){
@@ -15,7 +15,7 @@ e.preventDefault();
     }
     if(logo.status === 400){
         alert('Please login to log out :)');
-        history.push('https://votesphere-3.onrender.com/signin')
+        history.push('https://votesphere-5.onrender.com/signin')
     }
 
 }
@@ -31,11 +31,11 @@ e.preventDefault();
                 
            
 
-<div className="home"><NavLink exact activeClassName = "active" to="/">Home</NavLink></div>
-<div className="vote"><NavLink exact activeClassName = "active" to="/vote">Vote</NavLink></div>
-<div className="register"><NavLink exact activeClassName = "active" to="/signup">Register</NavLink></div>
-<div className="login"><NavLink exact activeClassName = "active" to="/signin">Login</NavLink></div>
-<div className="logout"><NavLink exact activeClassName = "active" to="/signout" onClick={logout}>Logout</NavLink></div>
+<div className="home"><NavLink exact activeClassName = "active" to="https://votesphere-5.onrender.com/">Home</NavLink></div>
+<div className="vote"><NavLink exact activeClassName = "active" to="https://votesphere-5.onrender.com/vote">Vote</NavLink></div>
+<div className="register"><NavLink exact activeClassName = "active" to="https://votesphere-5.onrender.com/signup">Register</NavLink></div>
+<div className="login"><NavLink exact activeClassName = "active" to="https://votesphere-5.onrender.com/signin">Login</NavLink></div>
+<div className="logout"><NavLink exact activeClassName = "active" to="https://votesphere-5.onrender.com/signout" onClick={logout}>Logout</NavLink></div>
             </RightSide>
         </Container>
 
