@@ -34,7 +34,7 @@ e.preventDefault();
 <div className="home"><NavLink exact activeClassName = "active" to="/">Home</NavLink></div>
 <div className="vote"><NavLink exact activeClassName = "active" to="/vote">Vote</NavLink></div>
 <div className="register"><NavLink exact activeClassName = "active" to="/signup">Register</NavLink></div>
-<div className="login"><NavLink exact activeClassName = "active" to="signin">Login</NavLink></div>
+<div className="login"><NavLink exact activeClassName = "active" to="/signin">Login</NavLink></div>
 <div className="logout"><NavLink exact activeClassName = "active" to="/signout" onClick={logout}>Logout</NavLink></div>
             </RightSide>
         </Container>
