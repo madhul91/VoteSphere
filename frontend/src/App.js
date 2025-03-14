@@ -11,11 +11,11 @@ function App() {
     <>
     <Navbar />
     <Switch>
-      <Route exact path="https://votesphere-3.onrender.com/" component={Home} />
-      <Route exact path="https://votesphere-3.onrender.com/signin" component={Login} />  
-      <Route exact path="https://votesphere-3.onrender.com/signout"  />
-      <Route exact path="https://votesphere-3.onrender.com/vote" component={Vote} />
-      <Route exact path="https://votesphere-3.onrender.com/signup" component={Register} />
+      <Route exact path="https://votesphere-5.onrender.com/" component={Home} />
+      <Route exact path="https://votesphere-5.onrender.com/signin" component={Login} />  
+      <Route exact path="https://votesphere-5.onrender.com/signout"  />
+      <Route exact path="https://votesphere-5.onrender.com/vote" component={Vote} />
+      <Route exact path="https://votesphere-5.onrender.com/signup" component={Register} />
     </Switch>
     <Footer />
     </>
