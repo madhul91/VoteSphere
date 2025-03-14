@@ -1,84 +1,72 @@
-import React, {useState} from 'react';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // For React Router v6
+import styled from 'styled-components';
 
 const Login = () => {
-    const history = useHistory()
+    const navigate = useNavigate(); // React Router v6 navigation
 
-    const [aadhar , setAadhar] = useState('')
-    // const [email , setEmail] = useState('')
-    const [password , setPassword] = useState('')
+    const [aadhar, setAadhar] = useState('');
+    const [password, setPassword] = useState('');
 
-    const LoginUser = async(e)=>{
-localStorage.setItem("aadhar",aadhar)
-localStorage.setItem("aadhar-password",password)
-
+    const LoginUser = async (e) => {
         e.preventDefault();
-    //     const res = await fetch('https://votesphere-5.onrender.com/login' , {
-    //         method: 'POST',
-    //         headers:{
-    //             "Content-Type" : "application/json"
-    //         },
-    //         body:JSON.stringify({
-    //             password,aadhar
-    //         })
 
-    //     });
+        if (!aadhar || !password) {
+            alert("Please enter both Aadhar and Password");
+            return;
+        }
 
-    //     const data = res.json();
-    //     if(res.status===400){
-    //         alert("Wrong login creditentials")
-    //     }
-    //     else{
-    //         alert("Logged in Successfull")
-    //         history.push('/')
-    //     }
-    // }
-        const res = await fetch('https://votesphere-5.onrender.com/login', {
-    method: 'POST',
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ password, aadhar })
-});
+        localStorage.setItem("aadhar", aadhar);
+        localStorage.setItem("aadhar-password", password);
 
-if (!res.ok) {
-    alert("Wrong login credentials");
-    return;
-}
+        try {
+            const res = await fetch('https://votesphere-5.onrender.com/login', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password, aadhar })
+            });
 
-const data = await res.json();
-alert("Logged in Successfully");
-history.push('/');
-    
+            console.log("Response Status:", res.status); // Debugging
 
-  return (
-      <>
-      <Container>
-          <Form>
+            if (!res.ok) {
+                alert("Wrong login credentials");
+                return;
+            }
 
-        <form method="POST">
-                <div className="head">Login</div>
+            const data = await res.json();
+            alert("Logged in Successfully");
+            console.log("Redirecting to home...");
+            navigate('/');
+
+        } catch (error) {
+            console.error("Login Error:", error);
+            alert("Something went wrong. Please try again.");
+        }
+    };
+
+    return (
+        <Container>
+            <Form>
+                <form method="POST">
+                    <div className="head">Login</div>
 
                     <div className="aadhar">
-                <label htmlFor="aadhar">Aadhar Number</label>
-                <input type="text" name="aadhar" id="aadhar" placeholder="Enter your aadhar number" value={aadhar} onChange={(e)=>setAadhar(e.target.value)}/>
+                        <label htmlFor="aadhar">Aadhar Number</label>
+                        <input type="text" name="aadhar" id="aadhar" placeholder="Enter your aadhar number"
+                            value={aadhar} onChange={(e) => setAadhar(e.target.value)} />
                     </div>
-                {/* <div className="email">
-                <label htmlFor="email">Email</label>
-                <input type="text" name="email" id="name" placeholder="Enter your email address" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                </div> */}
 
-                <div className="password">
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="Enter your Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
-                </div>
+                    <div className="password">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Enter your Password"
+                            value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </div>
 
-
-                <button type="submit" onClick={LoginUser}>Login</button>
-        </form>
-          </Form>
-      </Container>
-      </>
-  );
+                    <button type="submit" onClick={LoginUser}>Login</button>
+                </form>
+            </Form>
+        </Container>
+    );
 };
 
 export default Login;
