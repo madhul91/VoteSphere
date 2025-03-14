@@ -24,7 +24,7 @@ const Login = () => {
         const {name, email, mobile , password ,aadhar} = user;
         if(name==="" || email==="" || mobile==="" || password==="" || aadhar===""){
             alert('Fill in all the fields')
-            history.push('https://votesphere-5.onrender.com/signup')
+            history.push('/signup')
         }
         else{
             
@@ -41,11 +41,11 @@ const Login = () => {
        const data = await res.json();
        if(res.status === 422 || !data){
                 window.alert("User already exists.Try logging in")
-                history.push('https://votesphere-5.onrender.com/signin')
+                history.push('/signin')
        }
        else{
            window.alert("Registration Successfull")
-           history.push('https://votesphere-5.onrender.com/signin')
+           history.push('/signin')
        }
     }
     }
