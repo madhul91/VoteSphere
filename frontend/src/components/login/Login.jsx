@@ -14,26 +14,42 @@ localStorage.setItem("aadhar",aadhar)
 localStorage.setItem("aadhar-password",password)
 
         e.preventDefault();
-        const res = await fetch('https://votesphere-5.onrender.com/login' , {
-            method: 'POST',
-            headers:{
-                "Content-Type" : "application/json"
-            },
-            body:JSON.stringify({
-                password,aadhar
-            })
+    //     const res = await fetch('https://votesphere-5.onrender.com/login' , {
+    //         method: 'POST',
+    //         headers:{
+    //             "Content-Type" : "application/json"
+    //         },
+    //         body:JSON.stringify({
+    //             password,aadhar
+    //         })
 
-        });
+    //     });
 
-        const data = res.json();
-        if(res.status===400){
-            alert("Wrong login creditentials")
-        }
-        else{
-            alert("Logged in Successfull")
-            history.push('/')
-        }
-    }
+    //     const data = res.json();
+    //     if(res.status===400){
+    //         alert("Wrong login creditentials")
+    //     }
+    //     else{
+    //         alert("Logged in Successfull")
+    //         history.push('/')
+    //     }
+    // }
+        const res = await fetch('https://votesphere-5.onrender.com/login', {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password, aadhar })
+});
+
+if (!res.ok) {
+    alert("Wrong login credentials");
+    return;
+}
+
+const data = await res.json();
+alert("Logged in Successfully");
+history.push('/');
+    
+
   return (
       <>
       <Container>
