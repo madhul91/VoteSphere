@@ -16,7 +16,7 @@ const SubmitVote = async(e)=>{
   const party = vote;
   if(vote === ""){
     alert('Please Select an option')
-    history.push('https://votesphere-5.onrender.com/vote')
+    history.push('/vote')
   }
   else{
     const res = await fetch('https://votesphere-5.onrender.com/voterecording' , { 
@@ -32,15 +32,15 @@ const SubmitVote = async(e)=>{
 
         if(res.status===400){
             alert("Please login to vote")
-            history.push('https://votesphere-5.onrender.com/signin')
+            history.push('/signin')
         }
         if(res.status===500){
           alert("You have already voted. Can not vote again");
-          history.push('https://votesphere-5.onrender.com/')
+          history.push('/')
         }
         if(res.status===200){
             alert("Vote recorded successfully")
-            history.push('https://votesphere-5.onrender.com/')
+            history.push('/')
         }
   }
 }
