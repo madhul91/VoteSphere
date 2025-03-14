@@ -31,7 +31,7 @@ localStorage.setItem("aadhar-password",password)
         }
         else{
             alert("Logged in Successfull")
-            history.push('https://votesphere-5.onrender.com/')
+            history.push('/')
         }
     }
   return (
