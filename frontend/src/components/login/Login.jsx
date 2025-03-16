@@ -1,48 +1,39 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For React Router v6
-import styled from 'styled-components';
+import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components'
 
 const Login = () => {
-    const navigate = useNavigate(); // React Router v6 navigation
+    const history = useHistory()
 
-    const [aadhar, setAadhar] = useState('');
-    const [password, setPassword] = useState('');
+    const [aadhar , setAadhar] = useState('')
+    // const [email , setEmail] = useState('')
+    const [password , setPassword] = useState('')
 
-    const LoginUser = async (e) => {
+    const LoginUser = async(e)=>{
+localStorage.setItem("aadhar",aadhar)
+localStorage.setItem("aadhar-password",password)
+
         e.preventDefault();
+        const res = await fetch('https://votesphere-5.onrender.com/login' , {
+            method: 'POST',
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body:JSON.stringify({
+                password,aadhar
+            })
 
-        if (!aadhar || !password) {
-            alert("Please enter both Aadhar and Password");
-            return;
+        });
+
+        const data = res.json();
+        if(res.status===400){
+            alert("Wrong login creditentials")
         }
-
-        localStorage.setItem("aadhar", aadhar);
-        localStorage.setItem("aadhar-password", password);
-
-        try {
-            const res = await fetch('https://votesphere-5.onrender.com/login', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ password, aadhar })
-            });
-
-            console.log("Response Status:", res.status); // Debugging
-
-            if (!res.ok) {
-                alert("Wrong login credentials");
-                return;
-            }
-
-            const data = await res.json();
-            alert("Logged in Successfully");
-            console.log("Redirecting to home...");
-            navigate('/');
-
-        } catch (error) {
-            console.error("Login Error:", error);
-            alert("Something went wrong. Please try again.");
+        else{
+            alert("Logged in Successfull")
+            history.push('/')
         }
-    };
+    }
 
     return (
         <Container>
