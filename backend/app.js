@@ -149,28 +149,68 @@ app.get('/logout' ,auth,async(req,res)=>{
 
 
 
-app.post('/voterecording',auth,async(req,res)=>{
-    try{
-        const aadhar = req.body.aadhar;
-        const password = req.body.password;
-        const user = await Register.findOne({aadhar:aadhar});
-        const isMatch = await bcrypt.compare(password,user.password);
-        if(isMatch){
-            if(user.voted.length !== 1){
-                const registerVote = user.voting(req.body.party);
-                console.log('success')
-                res.send('done');
-            }
-            else{
-                console.log('already voted')
-                res.status(500).send('already voted')
-            }
-        }
-    }catch(e){
-        console.log('problem in voting')
-        res.status(404).send()
+// app.post('/voterecording',auth,async(req,res)=>{
+//     try{
+//         const aadhar = req.body.aadhar;
+//         const password = req.body.password;
+//         const user = await Register.findOne({aadhar:aadhar});
+//         const isMatch = await bcrypt.compare(password,user.password);
+//         if(isMatch){
+//             if(user.voted.length !== 1){
+//                 const registerVote = user.voting(req.body.party);
+//                 console.log('success')
+//                 res.send('done');
+//             }
+//             else{
+//                 console.log('already voted')
+//                 res.status(500).send('already voted')
+//             }
+//         }
+//     }catch(e){
+//         console.log('problem in voting')
+//         res.status(404).send()
+//     }
+// })
+
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const router = express.Router();
+const Register = require("../models/Register");
+const auth = require("../middleware/auth"); // Assuming you have an auth middleware
+
+app.post("/voterecording", auth, async (req, res) => {
+  try {
+    const { aadhar, password, party } = req.body;
+
+    // Check if user exists
+    const user = await Register.findOne({ aadhar });
+    if (!user) {
+      return res.status(400).json({ error: "User not found" });
     }
-})
+
+    // Verify password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Check if user has already voted
+    if (user.voted.length === 1) {
+      return res.status(400).json({ error: "You have already voted" });
+    }
+
+    // Record the vote (assuming `voting` is an async function in the model)
+    await user.voting(party);
+    console.log("Vote recorded successfully");
+
+    return res.status(200).json({ message: "Vote recorded successfully" });
+  } catch (e) {
+    console.error("Error in voting:", e);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 
 
 // listening to server
