@@ -84,28 +84,56 @@ app.get('/login' , (req,res)=>{
     res.render('login')
     })
 
-app.post('/login' , async(req,res)=>{
-try{
-    const aadhar = req.body.aadhar;
-    const password = req.body.password;
-    const user = await Register.findOne({aadhar:aadhar});
-    const isMatch =  await bcrypt.compare(password, user.password);
-    const token = await user.generateAuthToken();
-    res.cookie("jwt" , token , {
-        expires:new Date(Date.now() + 600000),
-        httpOnly:true,
-    })
-    if(isMatch){
-        console.log('Login Successfull')
-        res.status(200).send('Logged in ')
-    }
-}
-catch(e){
-    console.log(e.message)
-    res.status(400).send('error logging in')
+// app.post('/login' , async(req,res)=>{
+// try{
+//     const aadhar = req.body.aadhar;
+//     const password = req.body.password;
+//     const user = await Register.findOne({aadhar:aadhar});
+//     const isMatch =  await bcrypt.compare(password, user.password);
+//     const token = await user.generateAuthToken();
+//     res.cookie("jwt" , token , {
+//         expires:new Date(Date.now() + 600000),
+//         httpOnly:true,
+//     })
+//     if(isMatch){
+//         console.log('Login Successfull')
+//         res.status(200).send('Logged in ')
+//     }
+// }
+// catch(e){
+//     console.log(e.message)
+//     res.status(400).send('error logging in')
 
-}
-})
+// }
+// })
+app.post('/login', async (req, res) => {
+    try {
+        const { aadhar, password } = req.body;
+
+        const user = await Register.findOne({ aadhar });
+        if (!user) {
+            return res.status(400).json({ error: "User not found" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ error: "Invalid credentials" });
+        }
+
+        const token = await user.generateAuthToken();
+        res.cookie("jwt", token, {
+            expires: new Date(Date.now() + 600000),
+            httpOnly: true,
+        });
+
+        console.log("Login Successful");
+        res.status(200).json({ message: "Logged in", token });
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).json({ error: "Error logging in" });
+    }
+});
+
 
 
 app.get('/home' , async(req,res)=>{
