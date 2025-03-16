@@ -172,11 +172,7 @@ app.get('/logout' ,auth,async(req,res)=>{
 //     }
 // })
 
-const express = require("express");
-const bcrypt = require("bcryptjs");
-const router = express.Router();
-const Register = require("../models/Register");
-const auth = require("../middleware/auth"); // Assuming you have an auth middleware
+
 
 app.post("/voterecording", auth, async (req, res) => {
   try {
