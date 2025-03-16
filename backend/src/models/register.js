@@ -16,11 +16,11 @@ const userSchema = new mongoose.Schema({
         require:true
     },
     password:{
-        type:String,
+        type:Number,
         require:true
     },
     aadhar:{
-        type:String,
+        type:Number,
         require:true,
         unique:true
     },
