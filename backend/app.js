@@ -14,7 +14,7 @@ const cors = require('cors')
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
-const allowedOrigins = [];
+
 const allowedOrigins = ['https://vote-sphere-rdko.vercel.app/'];
 
 app.use(cors({
